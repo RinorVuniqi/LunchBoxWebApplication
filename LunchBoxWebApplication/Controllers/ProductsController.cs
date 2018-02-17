@@ -36,7 +36,7 @@ namespace LunchBoxWebApplication.Controllers
                     ProductQuantity = p.ProductQuantity
                 };
 
-            return products;
+            return products; 
         }
 
         // GET: api/Products/5
