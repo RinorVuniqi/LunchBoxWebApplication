@@ -40,14 +40,14 @@ namespace LunchBoxWebApplication.Controllers
         }
 
         // GET: api/Products/5
-        [ResponseType(typeof(Product))]
+        [ResponseType(typeof(ProductDTO))]
         public async Task<IHttpActionResult> GetProduct(Guid id)
         {
-            Product product = await db.Products.FindAsync(id);
-            if (product == null)
-            {
-                return NotFound();
-            }
+            var product = db.Products.FirstOrDefault(p => p.ProductId == id);
+
+            product.Ingredients = product.IngredientsBlobbed != null
+                ? JsonConvert.DeserializeObject<List<string>>(product.IngredientsBlobbed)
+                : null;
 
             return Ok(product);
         }
@@ -88,33 +88,31 @@ namespace LunchBoxWebApplication.Controllers
         }
 
         // POST: api/Products
-        [ResponseType(typeof(Product))]
-        public async Task<IHttpActionResult> PostProduct(Product product)
+        [ResponseType(typeof(ProductDTO))]
+        public async Task<IHttpActionResult> PostProduct(ProductDTO productDTO)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
+            var product = new Product
+            {
+                ProductId = productDTO.ProductId,
+                ProductName = productDTO.ProductName,
+                ProductDescription = productDTO.ProductDescription,
+                ProductNote = productDTO.ProductNote,
+                ImageUrl = productDTO.ImageUrl,
+                IngredientsBlobbed = productDTO.IngredientsBlobbed,
+                ProductOfTheWeek = productDTO.ProductOfTheWeek,
+                ProductPersonName = productDTO.ProductPersonName,
+                ProductPrice = productDTO.ProductPrice,
+                ProductQuantity = productDTO.ProductQuantity
+            };
+
             db.Products.Add(product);
-
-            try
-            {
-                await db.SaveChangesAsync();
-            }
-            catch (DbUpdateException)
-            {
-                if (ProductExists(product.ProductId))
-                {
-                    return Conflict();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return CreatedAtRoute("DefaultApi", new { id = product.ProductId }, product);
+            await db.SaveChangesAsync();
+            return Ok(productDTO);
         }
 
         // DELETE: api/Products/5
