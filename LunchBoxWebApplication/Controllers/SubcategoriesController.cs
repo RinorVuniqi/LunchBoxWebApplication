@@ -18,16 +18,32 @@ namespace LunchBoxWebApplication.Controllers
         private LunchBoxWebApplicationContext db = new LunchBoxWebApplicationContext();
 
         // GET: api/Subcategories
-        public IQueryable<Subcategory> GetSubcategories()
+        public IQueryable<SubcategoryDTO> GetSubcategories()
         {
-            return db.Subcategories;
+            var subcategories = from s in db.Subcategories
+                select new SubcategoryDTO()
+                {
+                    SubcategoryId = s.SubcategoryId,
+                    SubcategoryName = s.SubcategoryName,
+                    ImageUrl = s.ImageUrl,
+                    CategoryId = s.CategoryId
+                };
+            return subcategories;
         }
 
         // GET: api/Subcategories/5
-        [ResponseType(typeof(Subcategory))]
+        [ResponseType(typeof(SubcategoryDTO))]
         public async Task<IHttpActionResult> GetSubcategory(Guid id)
         {
-            Subcategory subcategory = await db.Subcategories.FindAsync(id);
+            var subcategory = await db.Subcategories.Select(s => new SubcategoryDTO()
+            {
+                SubcategoryId = s.SubcategoryId,
+                SubcategoryName = s.SubcategoryName,
+                ImageUrl = s.ImageUrl,
+                CategoryId = s.CategoryId
+
+            }).FirstOrDefaultAsync();
+
             if (subcategory == null)
             {
                 return NotFound();
@@ -72,33 +88,25 @@ namespace LunchBoxWebApplication.Controllers
         }
 
         // POST: api/Subcategories
-        [ResponseType(typeof(Subcategory))]
-        public async Task<IHttpActionResult> PostSubcategory(Subcategory subcategory)
+        [ResponseType(typeof(SubcategoryDTO))]
+        public async Task<IHttpActionResult> PostSubcategory(SubcategoryDTO subcategoryDTO)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
+            var subcategory = new Subcategory()
+            {
+                SubcategoryId = subcategoryDTO.SubcategoryId,
+                SubcategoryName = subcategoryDTO.SubcategoryName,
+                ImageUrl = subcategoryDTO.ImageUrl,
+                CategoryId = subcategoryDTO.CategoryId
+            };
+
             db.Subcategories.Add(subcategory);
-
-            try
-            {
-                await db.SaveChangesAsync();
-            }
-            catch (DbUpdateException)
-            {
-                if (SubcategoryExists(subcategory.SubcategoryId))
-                {
-                    return Conflict();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return CreatedAtRoute("DefaultApi", new { id = subcategory.SubcategoryId }, subcategory);
+            await db.SaveChangesAsync();
+            return Ok(subcategoryDTO);
         }
 
         // DELETE: api/Subcategories/5

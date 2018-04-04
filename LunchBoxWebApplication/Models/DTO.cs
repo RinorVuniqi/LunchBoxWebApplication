@@ -17,6 +17,7 @@ namespace LunchBoxWebApplication.Models
         public Guid SubcategoryId { get; set; }
         public string SubcategoryName { get; set; }
         public string ImageUrl { get; set; }
+        public Guid CategoryId { get; set; }
     }
 
     public class ProductDTO
@@ -32,5 +33,6 @@ namespace LunchBoxWebApplication.Models
         public string ImageUrl { get; set; }
         public List<string> Ingredients { get; set; }
         public string IngredientsBlobbed { get; set; } //serialized Ingredients
+        public Guid SubcategoryId { get; set; }
     }
 }

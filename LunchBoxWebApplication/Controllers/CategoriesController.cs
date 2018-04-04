@@ -18,22 +18,37 @@ namespace LunchBoxWebApplication.Controllers
         private LunchBoxWebApplicationContext db = new LunchBoxWebApplicationContext();
 
         // GET: api/Categories
-        public IQueryable<Category> GetCategories()
+        public IQueryable<CategoryDTO> GetCategories()
         {
-            return db.Categories;
+            var categories = from c in db.Categories
+                select new CategoryDTO()
+                {
+                    CategoryId = c.CategoryId,
+                    CategoryName = c.CategoryName,
+                    ImageUrl = c.ImageUrl
+                };
+
+            return categories;
         }
 
         // GET: api/Categories/5
-        [ResponseType(typeof(Category))]
+        [ResponseType(typeof(CategoryDTO))]
         public async Task<IHttpActionResult> GetCategory(Guid id)
         {
-            Category category = await db.Categories.FindAsync(id);
+            var category = await db.Categories.Select(c => new CategoryDTO()
+            {
+                CategoryId = c.CategoryId,
+                CategoryName = c.CategoryName,
+                ImageUrl = c.ImageUrl
+            }).FirstOrDefaultAsync(c => c.CategoryId == id);
+
             if (category == null)
             {
                 return NotFound();
             }
 
             return Ok(category);
+
         }
 
         // PUT: api/Categories/5
@@ -72,33 +87,24 @@ namespace LunchBoxWebApplication.Controllers
         }
 
         // POST: api/Categories
-        [ResponseType(typeof(Category))]
-        public async Task<IHttpActionResult> PostCategory(Category category)
+        [ResponseType(typeof(CategoryDTO))]
+        public async Task<IHttpActionResult> PostCategory(CategoryDTO categoryDTO)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
+            var category = new Category()
+            {
+                CategoryId = categoryDTO.CategoryId,
+                CategoryName = categoryDTO.CategoryName,
+                ImageUrl = categoryDTO.ImageUrl
+            };
+
             db.Categories.Add(category);
-
-            try
-            {
-                await db.SaveChangesAsync();
-            }
-            catch (DbUpdateException)
-            {
-                if (CategoryExists(category.CategoryId))
-                {
-                    return Conflict();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return CreatedAtRoute("DefaultApi", new { id = category.CategoryId }, category);
+            await db.SaveChangesAsync();
+            return Ok(categoryDTO);
         }
 
         // DELETE: api/Categories/5

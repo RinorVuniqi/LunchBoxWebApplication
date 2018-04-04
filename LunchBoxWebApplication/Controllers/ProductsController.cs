@@ -33,7 +33,8 @@ namespace LunchBoxWebApplication.Controllers
                     ProductOfTheWeek = p.ProductOfTheWeek,
                     ProductPersonName = p.ProductPersonName,
                     ProductPrice = p.ProductPrice,
-                    ProductQuantity = p.ProductQuantity
+                    ProductQuantity = p.ProductQuantity,
+                    SubcategoryId = p.SubcategoryId
                 };
 
             return products; 
@@ -43,7 +44,12 @@ namespace LunchBoxWebApplication.Controllers
         [ResponseType(typeof(ProductDTO))]
         public async Task<IHttpActionResult> GetProduct(Guid id)
         {
-            var product = db.Products.FirstOrDefault(p => p.ProductId == id);
+            var product = db.Products.Include(p => p.Subcategory).FirstOrDefault(p => p.ProductId == id);
+
+            if (product == null)
+            {
+                return NotFound();
+            }
 
             product.Ingredients = product.IngredientsBlobbed != null
                 ? JsonConvert.DeserializeObject<List<string>>(product.IngredientsBlobbed)
@@ -107,7 +113,8 @@ namespace LunchBoxWebApplication.Controllers
                 ProductOfTheWeek = productDTO.ProductOfTheWeek,
                 ProductPersonName = productDTO.ProductPersonName,
                 ProductPrice = productDTO.ProductPrice,
-                ProductQuantity = productDTO.ProductQuantity
+                ProductQuantity = productDTO.ProductQuantity,
+                SubcategoryId = productDTO.SubcategoryId
             };
 
             db.Products.Add(product);
