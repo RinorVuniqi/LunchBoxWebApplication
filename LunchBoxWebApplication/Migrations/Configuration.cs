@@ -18,6 +18,7 @@ namespace LunchBoxWebApplication.Migrations
 
         protected override void Seed(LunchBoxWebApplication.Models.LunchBoxWebApplicationContext context)
         {
+
             context.Categories.AddOrUpdate(
                 new Category() {
                     CategoryId = new Constants().Category1Guid,
