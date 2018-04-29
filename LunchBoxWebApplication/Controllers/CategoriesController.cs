@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -21,12 +22,12 @@ namespace LunchBoxWebApplication.Controllers
         public IQueryable<CategoryDTO> GetCategories()
         {
             var categories = from c in db.Categories
-                select new CategoryDTO()
-                {
-                    CategoryId = c.CategoryId,
-                    CategoryName = c.CategoryName,
-                    ImageUrl = c.ImageUrl
-                };
+                             select new CategoryDTO()
+                             {
+                                 CategoryId = c.CategoryId,
+                                 CategoryName = c.CategoryName,
+                                 ImageUrl = c.ImageUrl
+                             };
 
             return categories;
         }
@@ -97,7 +98,7 @@ namespace LunchBoxWebApplication.Controllers
 
             var category = new Category()
             {
-                CategoryId = categoryDTO.CategoryId,
+                CategoryId = Guid.NewGuid(),
                 CategoryName = categoryDTO.CategoryName,
                 ImageUrl = categoryDTO.ImageUrl
             };

@@ -308,7 +308,7 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
-    <Content Include="Scripts\Utility.js" />
+    <Content Include="Scripts\AngularCode.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -326,6 +326,8 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Home\ManageCategories.cshtml" />
+    <Content Include="Views\Home\ManageSubcategories.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

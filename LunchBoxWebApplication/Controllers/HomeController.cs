@@ -14,5 +14,15 @@ namespace LunchBoxWebApplication.Controllers
 
             return View();
         }
+
+        public ActionResult ManageCategories()
+        {
+            return View();
+        }
+
+        public ActionResult ManageSubcategories()
+        {
+            return View();
+        }
     }
 }

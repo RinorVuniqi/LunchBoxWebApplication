@@ -1,0 +1,85 @@
+﻿@{
+    ViewBag.Title = "ManageCategories";
+}
+<script src="~/Scripts/angular.js"></script>
+<script src="~/Scripts/AngularCode.js"></script>
+
+<h2>ManageCategories</h2>
+<div ng-app="myApp">
+    <div ng-controller="myCategories" ng-init="GetAllData()">
+        <p>List of Categories</p>
+        <table class="table table-bordered table-hover">
+            <tr>
+                <td>
+                    <b>Id</b>
+                </td>
+                <td>
+                    <b>Name</b>
+                </td>
+            </tr>
+            <tr ng-repeat="cat in categories">
+                <td>{{cat.CategoryId}}</td>
+                <td>{{cat.CategoryName}}</td>
+                <td>
+                    <input type="button" class="btn btn-warning" value="Update" ng-click="UpdateCat(cat)" />
+                    <input type="button" class="btn btn-danger" value="Delete" ng-click="DeleteCat(cat)" />
+                </td>
+            </tr>
+        </table>
+        <div class="form-control-static">
+            <div class="container">
+                <div class="row">
+                    <h2>
+                        <span id="spn">Add New Category</span>
+                    </h2>
+                </div>
+                <div class="row">
+                    <label>Name:</label>
+                    <input type="text" class="form-control" placeholder="Category Name" ng-model="CatName">
+                    <label>ImageURL:</label>
+                    <input type="text" class="form-control" placeholder="Category ImageURL" ng-model="CatUrl">
+                </div>
+                <div class="row">
+                    <input type="button" id="btnSave" class="form-control btn-info" value="Submit" ng-click="InsertData()" />
+                </div>
+            </div>
+        </div>
+    </div>
+    @Html.Hidden("CatID_")
+    @*<div ng-controller="mySubcategories" ng-init="GetAllData()">
+            <p>List of Subcategories</p>
+            <table class="table table-bordered table-hover">
+                <tr>
+                    <td>
+                        <b>Id</b>
+                    </td>
+                    <td>
+                        <b>Name</b>
+                    </td>
+
+                </tr>
+                <tr ng-repeat="subcat in subcategories">
+                    <td>{{subcat.SubcategoryId}}</td>
+                    <td>{{subcat.SubcategoryName}}</td>
+                </tr>
+            </table>
+        </div>
+
+        <div ng-controller="myProducts" ng-init="GetAllData()">
+            <p>List of Products</p>
+            <table class="table table-bordered table-hover">
+                <tr>
+                    <td>
+                        <b>Id</b>
+                    </td>
+                    <td>
+                        <b>Name</b>
+                    </td>
+                </tr>
+                <tr ng-repeat="prod in products">
+                    <td>{{prod.ProductId}}</td>
+                    <td>{{prod.ProductName}}</td>
+                </tr>
+            </table>
+        </div>*@
+</div>
