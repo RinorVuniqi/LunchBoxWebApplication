@@ -1,7 +1,59 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "ManageSubcategories";
 }
+<script src="~/Scripts/angular.js"></script>
+<script src="~/Scripts/AngularCode.js"></script>
 
-<h2>ManageSubcategories</h2>
+<h2>Manage Subcategories</h2>
+<div ng-app="myApp">
+    <div ng-controller="myCtrl" ng-init="GetAllCats()">
+        <select ng-model="selectedCategory" id="Cat_Dropdown">
+            <option ng-repeat="cat in categories" value="{{cat.CategoryId}}">{{cat.CategoryName}}</option>
+        </select>
+        <h4>Selected ID: {{selectedCategory}}</h4>
+
+        @* Depending on if there is a category selected it will show the table & the option to add/edit/delete items *@
+        <div ng-show="selectedCategory">
+            <p>List of Subcategories</p>
+            <table class="table table-bordered table-hover" ng-init="GetAllSubcats()">
+                <tr>
+                    <td>
+                        <b>Id</b>
+                    </td>
+                    <td>
+                        <b>Name</b>
+                    </td>
+                </tr>
+                <tr ng-repeat="subcat in subcategories | filter:selectedCategory:strict">
+                    <td>{{subcat.SubcategoryId}}</td>
+                    <td>{{subcat.SubcategoryName}}</td>
+                    <td>
+                        <input type="button" class="btn btn-warning" value="Update" ng-click="UpdateSubcat(subcat)" />
+                        <input type="button" class="btn btn-danger" value="Delete" ng-click="DeleteSubcat(subcat)" />
+                    </td>
+                </tr>
+            </table>
+
+            <div class="form-control-static">
+                <div class="container">
+                    <div class="row">
+                        <h2>
+                            <span id="spn">Add New Subcategory</span>
+                        </h2>
+                    </div>
+                    <div class="row">
+                        <label>Name:</label>
+                        <input type="text" class="form-control" placeholder="Subcategory Name" ng-model="SubcatName">
+                        <label>ImageURL:</label>
+                        <input type="text" class="form-control" placeholder="Subcategory ImageURL" ng-model="SubcatUrl">
+                    </div>
+                    <div class="row">
+                        <input type="button" id="btnSave" class="form-control btn-info" value="Submit" ng-click="InsertSubcat()" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        @Html.Hidden("SubcatID_")
+    </div>
+</div>
 

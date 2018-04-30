@@ -1,33 +1,26 @@
 ﻿var app = angular.module("myApp", []);
-app.controller("myCategories", function($scope, $http) {
-    $scope.GetAllData = function() {
+app.controller("myCtrl", function ($scope, $http) {
+    //Categories
+    //Gets all categories
+    $scope.GetAllCats = function () {
         $http({
             method: "get",
             url: "http://localhost:8080/api/categories"
-        }).then(function(response) {
+        }).then(function (response) {
             $scope.categories = response.data;
-            }, function() {
+        }, function () {
             alert("Error Occur");
         });
     };
-
+    //Deletes a category
     $scope.DeleteCat = function (Cat) {
         $http.delete('/api/categories/' + Cat.CategoryId).then(function (response) {
             alert(response.data);
-            $scope.GetAllData();
+            $scope.GetAllCats();
         });
-        //$http({
-        //    method: "delete",
-        //    url: "http://localhost:8080/api/categories/DeleteCategory",
-        //    datatype: "json",
-        //    data: JSON.stringify(Cat)
-        //}).then(function (response) {
-        //    alert(response.data);
-        //    $scope.GetAllData();
-        //});
     };
-
-    $scope.InsertData = function() {
+    //Inserts a category (depending on the button it clicks it's a post or put)
+    $scope.InsertCat = function () {
         var Action = document.getElementById("btnSave").getAttribute("value");
         if (Action == "Submit") {
             $scope.Category = {};
@@ -38,11 +31,11 @@ app.controller("myCategories", function($scope, $http) {
                 url: "http://localhost:8080/api/categories/",
                 datatype: "json",
                 data: JSON.stringify($scope.Category)
-        }).then(function(response) {
+            }).then(function (response) {
                 alert(response.data);
-                $scope.GetAllData();
+                $scope.GetAllCats();
                 $scope.CatName = "";
-                $scope.CatUrl = ""; 
+                $scope.CatUrl = "";
             });
         } else {
             $scope.Category = {};
@@ -54,9 +47,9 @@ app.controller("myCategories", function($scope, $http) {
                 url: "http://localhost:8080/api/categories/" + document.getElementById("CatID_").value,
                 datatype: "json",
                 data: JSON.stringify($scope.Category)
-            }).then(function(response) {
+            }).then(function (response) {
                 alert(response.data);
-                $scope.GetAllData();
+                $scope.GetAllCats();
                 $scope.CatName = "";
                 $scope.CatUrl = "";
                 document.getElementById("btnSave").setAttribute("value", "Submit");
@@ -65,7 +58,7 @@ app.controller("myCategories", function($scope, $http) {
             });
         }
     };
-
+    //Resets the button properties after a category was modified
     $scope.UpdateCat = function (Cat) {
         document.getElementById("CatID_").value = Cat.CategoryId;
         $scope.CatName = Cat.CategoryName;
@@ -74,11 +67,10 @@ app.controller("myCategories", function($scope, $http) {
         document.getElementById("btnSave").style.backgroundColor = "hotpink";
         document.getElementById("spn").innerHTML = "Update Category Information";
     };
-});
 
-app.controller("mySubcategories", function ($scope, $http) {
-    //debugger;
-    $scope.GetAllData = function () {
+    //Subcategories
+    //Gets all subcategories by id
+    $scope.GetAllSubcats = function () {
         $http({
             method: "get",
             url: "http://localhost:8080/api/subcategories"
@@ -87,6 +79,62 @@ app.controller("mySubcategories", function ($scope, $http) {
         }, function () {
             alert("Error Occur");
         });
+    };
+    //Deletes a category
+    $scope.DeleteSubcat = function (Subcat) {
+        $http.delete('/api/subcategories/' + Subcat.SubcategoryId).then(function (response) {
+            alert(response.data);
+            $scope.GetAllSubcats();
+        });
+    };
+    //Inserts a subcategory (depending on the button it clicks it's a post or put)
+    $scope.InsertSubcat = function () {
+        var Action = document.getElementById("btnSave").getAttribute("value");
+        if (Action == "Submit") {
+            $scope.Subcategory = {};
+            $scope.Subcategory.SubcategoryName = $scope.SubcatName;
+            $scope.Subcategory.ImageUrl = $scope.SubcatUrl;
+            $scope.Subcategory.CategoryId = document.getElementById("Cat_Dropdown").value;
+            $http({
+                method: "post",
+                url: "http://localhost:8080/api/subcategories/",
+                datatype: "json",
+                data: JSON.stringify($scope.Subcategory)
+            }).then(function (response) {
+                alert(response.data);
+                $scope.GetAllSubcats();
+                $scope.CatName = "";
+                $scope.CatUrl = "";
+            });
+        } else {
+            $scope.Subcategory = {};
+            $scope.Subcategory.SubcategoryName = $scope.SubcatName;
+            $scope.Subcategory.ImageUrl = $scope.SubcatUrl;
+            $scope.Subcategory.SubcategoryId = document.getElementById("SubcatID_").value;
+            $scope.Subcategory.CategoryId = document.getElementById("Cat_Dropdown").value;
+            $http({
+                method: "put",
+                url: "http://localhost:8080/api/subcategories/" + document.getElementById("SubcatID_").value,
+                datatype: "json",
+                data: JSON.stringify($scope.Subcategory)
+            }).then(function (response) {
+                alert(response.data);
+                $scope.GetAllSubcats();
+                $scope.SubcatName = "";
+                $scope.SubcatUrl = "";
+                document.getElementById("btnSave").setAttribute("value", "Submit");
+                document.getElementById("btnSave").style.backgroundColor = "cornflowerblue";
+                document.getElementById("spn").innerHTML = "Add New Subcategory";
+            });
+        }
+    };
+    $scope.UpdateSubcat = function (Subcat) {
+        document.getElementById("SubcatID_").value = Subcat.SubcategoryId;
+        $scope.SubcatName = Subcat.SubcategoryName;
+        $scope.SubcatUrl = Subcat.ImageUrl;
+        document.getElementById("btnSave").setAttribute("value", "Update");
+        document.getElementById("btnSave").style.backgroundColor = "hotpink";
+        document.getElementById("spn").innerHTML = "Update Category Information";
     };
 });
 

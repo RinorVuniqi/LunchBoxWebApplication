@@ -98,7 +98,7 @@ namespace LunchBoxWebApplication.Controllers
 
             var subcategory = new Subcategory()
             {
-                SubcategoryId = subcategoryDTO.SubcategoryId,
+                SubcategoryId = Guid.NewGuid(),
                 SubcategoryName = subcategoryDTO.SubcategoryName,
                 ImageUrl = subcategoryDTO.ImageUrl,
                 CategoryId = subcategoryDTO.CategoryId
