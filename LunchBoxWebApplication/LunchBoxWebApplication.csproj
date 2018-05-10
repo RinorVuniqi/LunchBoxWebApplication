@@ -328,6 +328,7 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\ManageCategories.cshtml" />
     <Content Include="Views\Home\ManageSubcategories.cshtml" />
+    <Content Include="Views\Home\ManageProducts.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -6,7 +6,7 @@
 
 <h2>Manage Subcategories</h2>
 <div ng-app="myApp">
-    <div ng-controller="myCtrl" ng-init="GetAllCats()">
+    <div ng-controller="myCtrl" ng-init="GetAllCats(); GetAllSubcats()">
         <select ng-model="selectedCategory" id="Cat_Dropdown">
             <option ng-repeat="cat in categories" value="{{cat.CategoryId}}">{{cat.CategoryName}}</option>
         </select>
@@ -15,7 +15,7 @@
         @* Depending on if there is a category selected it will show the table & the option to add/edit/delete items *@
         <div ng-show="selectedCategory">
             <p>List of Subcategories</p>
-            <table class="table table-bordered table-hover" ng-init="GetAllSubcats()">
+            <table class="table table-bordered table-hover">
                 <tr>
                     <td>
                         <b>Id</b>

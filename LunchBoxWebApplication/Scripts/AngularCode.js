@@ -69,7 +69,7 @@ app.controller("myCtrl", function ($scope, $http) {
     };
 
     //Subcategories
-    //Gets all subcategories by id
+    //Gets all subcategories
     $scope.GetAllSubcats = function () {
         $http({
             method: "get",
@@ -128,6 +128,7 @@ app.controller("myCtrl", function ($scope, $http) {
             });
         }
     };
+
     $scope.UpdateSubcat = function (Subcat) {
         document.getElementById("SubcatID_").value = Subcat.SubcategoryId;
         $scope.SubcatName = Subcat.SubcategoryName;
@@ -136,11 +137,10 @@ app.controller("myCtrl", function ($scope, $http) {
         document.getElementById("btnSave").style.backgroundColor = "hotpink";
         document.getElementById("spn").innerHTML = "Update Category Information";
     };
-});
 
-app.controller("myProducts", function ($scope, $http) {
-    //debugger;
-    $scope.GetAllData = function () {
+    //Products
+    //Gets all products
+    $scope.GetAllProds = function () {
         $http({
             method: "get",
             url: "http://localhost:8080/api/products"
@@ -150,4 +150,6 @@ app.controller("myProducts", function ($scope, $http) {
             alert("Error Occur");
         });
     };
+
+
 });

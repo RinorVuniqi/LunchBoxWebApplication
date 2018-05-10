@@ -1,0 +1,74 @@
+﻿@{
+    ViewBag.Title = "ManageProducts";
+}
+<script src="~/Scripts/angular.js"></script>
+<script src="~/Scripts/AngularCode.js"></script>
+
+<h2>Manage Products</h2>
+<div ng-app="myApp">
+    <div ng-controller="myCtrl" ng-init="GetAllCats(); GetAllSubcats(); GetAllProds()">
+        <select ng-model="selectedCategory" id="Cat_Dropdown">
+            <option ng-repeat="cat in categories" value="{{cat.CategoryId}}">{{cat.CategoryName}}</option>
+        </select>
+        <h4>Selected ID: {{selectedCategory}}</h4>
+        <div ng-show="selectedCategory">
+            <select ng-model="selectedSubcategory" id="Subcat_Dropdown">
+                <option ng-repeat="subcat in subcategories | filter:selectedCategory:strict" value="{{subcat.SubcategoryId}}">{{subcat.SubcategoryName}}</option>
+            </select>
+
+            <h4>Selected ID: {{selectedSubcategory}}</h4>
+        </div>
+
+        @* Depending on if there is a subcategory selected it will show the table & the option to add/edit/delete items *@
+        <div ng-show="selectedSubcategory">
+            <p>List of Products</p>
+            <table class="table table-bordered table-hover">
+                <tr>
+                    <td>
+                        <b>Id</b>
+                    </td>
+                    <td>
+                        <b>Name</b>
+                    </td>
+                    <td>
+                        <b>POTW</b>
+                    </td>
+                    <td>
+                        <b>Price</b>
+                    </td>
+                </tr>
+                <tr ng-repeat="prod in products | filter:selectedSubcategory:strict">
+                    <td>{{prod.ProductId}}</td>
+                    <td>{{prod.ProductName}}</td>
+                    <td>{{prod.ProductOfTheWeek}}</td>
+                    <td>{{prod.ProductPrice}}</td>
+                    <td>
+                        <input type="button" class="btn btn-warning" value="Update" ng-click="UpdateSubcat(prod)" />
+                        <input type="button" class="btn btn-danger" value="Delete" ng-click="DeleteSubcat(prod)" />
+                    </td>
+                </tr>
+            </table>
+
+            @*<div class="form-control-static">
+                <div class="container">
+                    <div class="row">
+                        <h2>
+                            <span id="spn">Add New Subcategory</span>
+                        </h2>
+                    </div>
+                    <div class="row">
+                        <label>Name:</label>
+                        <input type="text" class="form-control" placeholder="Subcategory Name" ng-model="ProdName">
+                        <label>ImageURL:</label>
+                        <input type="text" class="form-control" placeholder="Subcategory ImageURL" ng-model="ProdUrl">
+                    </div>
+                    <div class="row">
+                        <input type="button" id="btnSave" class="form-control btn-info" value="Submit" ng-click="InsertSubcat()" />
+                    </div>
+                </div>
+            </div>*@
+        </div>
+        @Html.Hidden("ProdID_")
+    </div>
+</div>
+
