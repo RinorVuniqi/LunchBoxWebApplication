@@ -22,22 +22,22 @@ namespace LunchBoxWebApplication.Controllers
         public IQueryable<ProductDTO> GetProducts()
         {
             var products = from p in db.Products
-                select new ProductDTO()
-                {
-                    ProductId = p.ProductId,
-                    ProductName = p.ProductName,
-                    ProductDescription = p.ProductDescription,
-                    ProductNote = p.ProductNote,
-                    ImageUrl = p.ImageUrl,
-                    IngredientsBlobbed = p.IngredientsBlobbed,
-                    ProductOfTheWeek = p.ProductOfTheWeek,
-                    ProductPersonName = p.ProductPersonName,
-                    ProductPrice = p.ProductPrice,
-                    ProductQuantity = p.ProductQuantity,
-                    SubcategoryId = p.SubcategoryId
-                };
+                           select new ProductDTO()
+                           {
+                               ProductId = p.ProductId,
+                               ProductName = p.ProductName,
+                               ProductDescription = p.ProductDescription,
+                               ProductNote = p.ProductNote,
+                               ImageUrl = p.ImageUrl,
+                               IngredientsBlobbed = p.IngredientsBlobbed,
+                               ProductOfTheWeek = p.ProductOfTheWeek,
+                               ProductPersonName = p.ProductPersonName,
+                               ProductPrice = p.ProductPrice,
+                               ProductQuantity = p.ProductQuantity,
+                               SubcategoryId = p.SubcategoryId
+                           };
 
-            return products; 
+            return products;
         }
 
         // GET: api/Products/5
@@ -104,7 +104,7 @@ namespace LunchBoxWebApplication.Controllers
 
             var product = new Product
             {
-                ProductId = productDTO.ProductId,
+                ProductId = Guid.NewGuid(),
                 ProductName = productDTO.ProductName,
                 ProductDescription = productDTO.ProductDescription,
                 ProductNote = productDTO.ProductNote,

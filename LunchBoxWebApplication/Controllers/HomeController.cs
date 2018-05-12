@@ -29,5 +29,10 @@ namespace LunchBoxWebApplication.Controllers
         {
             return View();
         }
+
+        public ActionResult ManageUsers()
+        {
+            return View();
+        }
     }
 }

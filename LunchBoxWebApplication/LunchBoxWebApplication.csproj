@@ -329,6 +329,7 @@
     <Content Include="Views\Home\ManageCategories.cshtml" />
     <Content Include="Views\Home\ManageSubcategories.cshtml" />
     <Content Include="Views\Home\ManageProducts.cshtml" />
+    <Content Include="Views\Home\ManageUsers.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

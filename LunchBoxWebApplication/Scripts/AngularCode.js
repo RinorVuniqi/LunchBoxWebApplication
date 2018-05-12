@@ -22,7 +22,7 @@ app.controller("myCtrl", function ($scope, $http) {
     //Inserts a category (depending on the button it clicks it's a post or put)
     $scope.InsertCat = function () {
         var Action = document.getElementById("btnSave").getAttribute("value");
-        if (Action == "Submit") {
+        if (Action === "Submit") {
             $scope.Category = {};
             $scope.Category.CategoryName = $scope.CatName;
             $scope.Category.ImageUrl = $scope.CatUrl;
@@ -90,7 +90,7 @@ app.controller("myCtrl", function ($scope, $http) {
     //Inserts a subcategory (depending on the button it clicks it's a post or put)
     $scope.InsertSubcat = function () {
         var Action = document.getElementById("btnSave").getAttribute("value");
-        if (Action == "Submit") {
+        if (Action === "Submit") {
             $scope.Subcategory = {};
             $scope.Subcategory.SubcategoryName = $scope.SubcatName;
             $scope.Subcategory.ImageUrl = $scope.SubcatUrl;
@@ -103,8 +103,8 @@ app.controller("myCtrl", function ($scope, $http) {
             }).then(function (response) {
                 alert(response.data);
                 $scope.GetAllSubcats();
-                $scope.CatName = "";
-                $scope.CatUrl = "";
+                $scope.SubcatName = "";
+                $scope.SubcatUrl = "";
             });
         } else {
             $scope.Subcategory = {};
@@ -128,7 +128,7 @@ app.controller("myCtrl", function ($scope, $http) {
             });
         }
     };
-
+    //Resets the button properties after a category was modified
     $scope.UpdateSubcat = function (Subcat) {
         document.getElementById("SubcatID_").value = Subcat.SubcategoryId;
         $scope.SubcatName = Subcat.SubcategoryName;
@@ -150,6 +150,82 @@ app.controller("myCtrl", function ($scope, $http) {
             alert("Error Occur");
         });
     };
-
-
+    //Deletes a product
+    $scope.DeleteProd = function (Prod) {
+        $http.delete('/api/products/' + Prod.ProductId).then(function (response) {
+            alert(response.data);
+            $scope.GetAllProds();
+        });
+    };
+    //Inserts a subcategory (depending on the button it clicks it's a post or put)
+    $scope.InsertProd = function () {
+        var Action = document.getElementById("btnSave").getAttribute("value");
+        if (Action === "Submit") {
+            $scope.Product = {};
+            $scope.Product.ProductName = $scope.ProdName;
+            $scope.Product.ProductOfTheWeek = $scope.ProdPOTW;
+            $scope.Product.ProductDescription = $scope.ProdDescr;
+            $scope.Product.ProductPrice = $scope.ProdPrice;
+            $scope.Product.IngredientsBlobbed = $scope.ProdIngred;
+            $scope.Product.ImageUrl = $scope.ProdUrl;
+            $scope.Product.SubcategoryId = document.getElementById("Subcat_Dropdown").value;
+            $http({
+                method: "post",
+                url: "http://localhost:8080/api/products/",
+                datatype: "json",
+                data: JSON.stringify($scope.Product)
+            }).then(function (response) {
+                alert(response.data);
+                $scope.GetAllProds();
+                $scope.ProdName = "";
+                $scope.ProdDescr = "";
+                $scope.ProdPrice = "";
+                $scope.ProdIngred = "";
+                $scope.ProdUrl = "";
+            });
+        } else {
+            $scope.Product = {};
+            $scope.Product.ProductName = $scope.ProdName;
+            $scope.Product.ProductOfTheWeek = $scope.ProdPOTW;
+            $scope.Product.ProductDescription = $scope.ProdDescr;
+            $scope.Product.ProductPrice = $scope.ProdPrice;
+            $scope.Product.IngredientsBlobbed = $scope.ProdIngred;
+            $scope.Product.ImageUrl = $scope.ProdUrl;
+            $scope.Product.ProductId = document.getElementById("ProdID_").value;
+            $scope.Product.SubcategoryId = document.getElementById("Subcat_Dropdown").value;
+            
+            $http({
+                method: "put",
+                url: "http://localhost:8080/api/products/" + document.getElementById("ProdID_").value,
+                datatype: "json",
+                data: JSON.stringify($scope.Product)
+            }).then(function (response) {
+                alert(response.data);
+                $scope.GetAllProds();
+                $scope.ProdName = "";
+                $scope.ProdPOTW = false;
+                $scope.ProdDescr = "";
+                $scope.ProdPrice = "";
+                $scope.ProdIngred = "";
+                $scope.ProdUrl = "";
+                document.getElementById("btnSave").setAttribute("value", "Submit");
+                document.getElementById("btnSave").style.backgroundColor = "cornflowerblue";
+                document.getElementById("spn").innerHTML = "Add New Product";
+            });
+        }
+    };
+    //Resets the button properties after a category was modified
+    $scope.UpdateProd = function (Prod) {
+        document.getElementById("ProdID_").value = Prod.ProductId;
+        $scope.ProdName = Prod.ProductName;
+        $scope.ProdPOTW = Prod.ProductOfTheWeek;
+        $scope.ProdDescr = Prod.ProductDescription;
+        $scope.ProdPrice = Prod.ProductPrice;
+        $scope.ProdIngred = Prod.IngredientsBlobbed;
+        $scope.ProdUrl = Prod.ImageUrl;
+        
+        document.getElementById("btnSave").setAttribute("value", "Update");
+        document.getElementById("btnSave").style.backgroundColor = "hotpink";
+        document.getElementById("spn").innerHTML = "Update Category Information";
+    };
 });

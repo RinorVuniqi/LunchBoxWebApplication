@@ -41,32 +41,46 @@
                     <td>{{prod.ProductId}}</td>
                     <td>{{prod.ProductName}}</td>
                     <td>{{prod.ProductOfTheWeek}}</td>
-                    <td>{{prod.ProductPrice}}</td>
+                    <td>{{prod.ProductPrice | currency: "€ "}}</td>
                     <td>
-                        <input type="button" class="btn btn-warning" value="Update" ng-click="UpdateSubcat(prod)" />
-                        <input type="button" class="btn btn-danger" value="Delete" ng-click="DeleteSubcat(prod)" />
+                        <input type="button" class="btn btn-warning" value="Update" ng-click="UpdateProd(prod)" />
+                        <input type="button" class="btn btn-danger" value="Delete" ng-click="DeleteProd(prod)" />
                     </td>
                 </tr>
             </table>
 
-            @*<div class="form-control-static">
+            <div class="form-control-static">
                 <div class="container">
                     <div class="row">
                         <h2>
-                            <span id="spn">Add New Subcategory</span>
+                            <span id="spn">Add New Product</span>
                         </h2>
                     </div>
                     <div class="row">
                         <label>Name:</label>
-                        <input type="text" class="form-control" placeholder="Subcategory Name" ng-model="ProdName">
+                        <input type="text" class="form-control" placeholder="Product Name" ng-model="ProdName">
+
+                        <label>Product of the week:</label>
+                        <input type="checkbox" class="form-control" ng-model="ProdPOTW">
+
+                        <label>Description:</label>
+                        <input type="text" class="form-control" placeholder="Product Description" ng-model="ProdDescr">
+
+                        <label>Price:</label>
+                        <input type="number" class="form-control"  ng-model="ProdPrice">
+
+                        <label>Ingredients:</label>
+                        <input type="text" class="form-control" placeholder="[&quot;Ingredient1&quot;,&quot;Ingredient2&quot;]" ng-model="ProdIngred">
+
                         <label>ImageURL:</label>
-                        <input type="text" class="form-control" placeholder="Subcategory ImageURL" ng-model="ProdUrl">
+                        <input type="text" class="form-control" placeholder="Product ImageURL" ng-model="ProdUrl">
+
                     </div>
                     <div class="row">
-                        <input type="button" id="btnSave" class="form-control btn-info" value="Submit" ng-click="InsertSubcat()" />
+                        <input type="button" id="btnSave" class="form-control btn-info" value="Submit" ng-click="InsertProd()" />
                     </div>
                 </div>
-            </div>*@
+            </div>
         </div>
         @Html.Hidden("ProdID_")
     </div>
