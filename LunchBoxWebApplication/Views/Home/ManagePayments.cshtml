@@ -1,0 +1,48 @@
+﻿
+@{
+    ViewBag.Title = "ManagePayments";
+}
+<script src="~/Scripts/angular.js"></script>
+<script src="~/Scripts/AngularCode.js"></script>
+
+<h2>Manage Payments</h2>
+<div ng-app="myApp">
+    <div ng-controller="myCtrl" ng-init="GetAllPay()">
+        <p>List of Payments</p>
+        <table class="table table-bordered table-hover">
+            <tr>
+                <td>
+                    <b>Id</b>
+                </td>
+                <td>
+                    <b>Name</b>
+                </td>
+            </tr>
+            <tr ng-repeat="pay in payments">
+                <td>{{pay.PaymentId}}</td>
+                <td>{{pay.PaymentName}}</td>
+                <td>
+                    <input type="button" class="btn btn-warning" value="Update" ng-click="UpdatePay(pay)" />
+                    <input type="button" class="btn btn-danger" value="Delete" ng-click="DeletePay(pay)" />
+                </td>
+            </tr>
+        </table>
+        <div class="form-control-static">
+            <div class="container">
+                <div class="row">
+                    <h2>
+                        <span id="spn">Add New Payment</span>
+                    </h2>
+                </div>
+                <div class="row">
+                    <label>Name:</label>
+                    <input type="text" class="form-control" placeholder="Payment Name" ng-model="PayName">
+                </div>
+                <div class="row">
+                    <input type="button" id="btnSave" class="form-control btn-info" value="Submit" ng-click="InsertPay()" />
+                </div>
+            </div>
+        </div>
+    </div>
+    @Html.Hidden("PayID_")
+</div>

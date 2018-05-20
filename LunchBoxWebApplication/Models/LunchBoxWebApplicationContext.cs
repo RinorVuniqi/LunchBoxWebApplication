@@ -24,5 +24,13 @@ namespace LunchBoxWebApplication.Models
         public System.Data.Entity.DbSet<LunchBoxWebApplication.Models.Subcategory> Subcategories { get; set; }
 
         public System.Data.Entity.DbSet<LunchBoxWebApplication.Models.Product> Products { get; set; }
+
+        public System.Data.Entity.DbSet<LunchBoxWebApplication.Models.User> Users { get; set; }
+
+        public System.Data.Entity.DbSet<LunchBoxWebApplication.Models.Order> Orders { get; set; }
+
+        public System.Data.Entity.DbSet<LunchBoxWebApplication.Models.Payment> Payments { get; set; }
+
+        public System.Data.Entity.DbSet<LunchBoxWebApplication.Models.OrderedProduct> OrderedProducts { get; set; }
     }
 }

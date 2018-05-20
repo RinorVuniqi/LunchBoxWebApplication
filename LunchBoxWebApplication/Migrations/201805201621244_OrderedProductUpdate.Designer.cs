@@ -7,13 +7,13 @@ namespace LunchBoxWebApplication.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class InitialCategories : IMigrationMetadata
+    public sealed partial class OrderedProductUpdate : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(InitialCategories));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(OrderedProductUpdate));
         
         string IMigrationMetadata.Id
         {
-            get { return "201802171630057_InitialCategories"; }
+            get { return "201805201621244_OrderedProductUpdate"; }
         }
         
         string IMigrationMetadata.Source

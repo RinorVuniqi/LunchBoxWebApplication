@@ -2,6 +2,59 @@
 @{
     ViewBag.Title = "ManageUsers";
 }
+<script src="~/Scripts/angular.js"></script>
+<script src="~/Scripts/AngularCode.js"></script>
 
-<h2>ManageUsers</h2>
-
+<h2>Manage Users</h2>
+<div ng-app="myApp">
+    <div ng-controller="myCtrl" ng-init="GetAllUse()">
+        <p>List of Users</p>
+        <table class="table table-bordered table-hover">
+            <tr>
+                <td>
+                    <b>Id</b>
+                </td>
+                <td>
+                    <b>UserName</b>
+                </td>
+                <td>
+                    <b>UserEmail</b>
+                </td>
+            </tr>
+            <tr ng-repeat="use in users">
+                <td>{{use.UserId}}</td>
+                <td>{{use.UserName}}</td>
+                <td>{{use.UserEmail}}</td>
+                <td>
+                    <input type="button" class="btn btn-warning" value="Update" ng-click="UpdateUse(use)" />
+                    <input type="button" class="btn btn-danger" value="Delete" ng-click="DeleteUse(use)" />
+                </td>
+            </tr>
+        </table>
+        <div class="form-control-static">
+            <div class="container">
+                <div class="row">
+                    <h2>
+                        <span id="spn">Add New User</span>
+                    </h2>
+                </div>
+                <div class="row">
+                    <label>Username:</label>
+                    <input type="text" class="form-control" placeholder="Username" ng-model="UseName">
+                    <label>Email:</label>
+                    <input type="text" class="form-control" placeholder="User Email" ng-model="UseEmail">
+                    <label>Password:</label>
+                    <input type="text" class="form-control" placeholder="User Password" ng-model="UsePw">
+                    <label>First Name:</label>
+                    <input type="text" class="form-control" placeholder="User First Name" ng-model="UseFirstName">
+                    <label>Last Name:</label>
+                    <input type="text" class="form-control" placeholder="User Last Name" ng-model="UseLastName">
+                </div>
+                <div class="row">
+                    <input type="button" id="btnSave" class="form-control btn-info" value="Submit" ng-click="InsertUse()" />
+                </div>
+            </div>
+        </div>
+    </div>
+    @Html.Hidden("UseID_")
+</div>
