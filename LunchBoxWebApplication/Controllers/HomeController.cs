@@ -39,5 +39,10 @@ namespace LunchBoxWebApplication.Controllers
         {
             return View();
         }
+
+        public ActionResult OverviewOrders()
+        {
+            return View();
+        }
     }
 }

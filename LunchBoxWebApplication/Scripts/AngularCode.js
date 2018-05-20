@@ -379,4 +379,30 @@ app.controller("myCtrl", function ($scope, $http) {
         document.getElementById("btnSave").style.backgroundColor = "hotpink";
         document.getElementById("spn").innerHTML = "Update Payment Information";
     };
+
+    //Orders
+    //Gets all orders
+    $scope.GetAllOrd = function () {
+        $http({
+            method: "get",
+            url: "http://localhost:8080/api/orders"
+        }).then(function (response) {
+            $scope.orders = response.data;
+        }, function () {
+            alert("Error Occur");
+        });
+    };
+
+    $scope.GetOrdProd = function (Ord) {
+        document.getElementById("OrdID_").value = Ord.OrderId;
+        $scope.selectedOrder = Ord.OrderId;
+        $http({
+            method: "get",
+            url: "http://localhost:8080/api/OrderedProducts/" + Ord.OrderId
+        }).then(function (response) {
+            $scope.products = response.data;
+        }, function () {
+            alert("Error Occur");
+        });
+    };
 });

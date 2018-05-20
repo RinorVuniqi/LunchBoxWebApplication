@@ -33,8 +33,7 @@ namespace LunchBoxWebApplication.Controllers
                     OrderTotalProductCount = o.OrderTotalProductCount,
                     OrderTime = o.OrderTime,
                     OrderDate = o.OrderDate,
-                    OrderTotalPrice = o.OrderTotalPrice,
-                    OrderUser = o.OrderUser
+                    OrderTotalPrice = o.OrderTotalPrice
                 };
 
             return orders;

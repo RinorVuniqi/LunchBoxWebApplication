@@ -1,0 +1,74 @@
+﻿
+@{
+    ViewBag.Title = "OverviewOrders";
+}
+<script src="~/Scripts/angular.js"></script>
+<script src="~/Scripts/AngularCode.js"></script>
+
+<h2>Overeview Orders</h2>
+<div ng-app="myApp">
+    <div ng-controller="myCtrl" ng-init="GetAllOrd()">
+        <p>List of Orders</p>
+        <h4>Selected Order: {{selectedOrder}}</h4>
+        <table class="table table-bordered table-hover">
+            <tr>
+                <td>
+                    <b>Date</b>
+                </td>
+                <td>
+                    <b>Time</b>
+                </td>
+                <td>
+                    <b>Email</b>
+                </td>
+                <td>
+                    <b>Delivery</b>
+                </td>
+                <td>
+                    <b>Count</b>
+                </td>
+                <td>
+                    <b>Price</b>
+                </td>
+            </tr>
+            <tr ng-repeat="ord in orders | orderBy: ['OrderDate', 'OrderTime']" ng-class="{reverse: reverse}" ng-click="GetOrdProd(ord)">
+                <td>{{ord.OrderDate}}</td>
+                <td>{{ord.OrderTime}}</td>
+                <td>{{ord.OrderUser.UserEmail}}</td>
+                <td>{{ord.OrderCompanyName}}</td>
+                <td>{{ord.OrderTotalProductCount}}</td>
+                <td>{{ord.OrderTotalPrice}}</td>
+            </tr>
+        </table>
+
+        <table class="table table-bordered table-hover">
+            <tr>
+                <td>
+                    <b>Product</b>
+                </td>
+                <td>
+                    <b>Price</b>
+                </td>
+                <td>
+                    <b>Quantity</b>
+                </td>
+                <td>
+                    <b>Person</b>
+                </td>
+                <td>
+                    <b>Note</b>
+                </td>
+            </tr>
+            <tr ng-repeat="prod in products">
+                <td>{{prod.ProductName}}</td>
+                <td>{{prod.ProductPrice}}</td>
+                <td>{{prod.ProductQuantity}}</td>
+                <td>{{prod.ProductPersonName}}</td>
+                <td>{{prod.ProductNote}}</td>
+            </tr>
+        </table>
+
+    </div>
+    @Html.Hidden("OrdID_")
+</div>
+
