@@ -33,7 +33,9 @@ namespace LunchBoxWebApplication.Controllers
                     OrderTotalProductCount = o.OrderTotalProductCount,
                     OrderTime = o.OrderTime,
                     OrderDate = o.OrderDate,
-                    OrderTotalPrice = o.OrderTotalPrice
+                    OrderTotalPrice = o.OrderTotalPrice,
+                    OrderFinished = o.OrderFinished,
+                    OrderUser = o.OrderUser
                 };
 
             return orders;
@@ -51,7 +53,8 @@ namespace LunchBoxWebApplication.Controllers
                 OrderCompanyName = o.OrderCompanyName,
                 OrderPayment = o.OrderPayment,
                 OrderTotalProductCount = o.OrderTotalProductCount,
-                OrderTotalPrice = o.OrderTotalPrice
+                OrderTotalPrice = o.OrderTotalPrice,
+                OrderFinished = o.OrderFinished
             }).FirstOrDefaultAsync(o => o.OrderId == id);
 
             if (order == null)
@@ -133,7 +136,8 @@ namespace LunchBoxWebApplication.Controllers
                 OrderDate = DateTime.Now.ToLongDateString(),
                 OrderTime = DateTime.Now.ToLongTimeString(),
                 OrderTotalProductCount = orderDTO.OrderTotalProductCount,
-                OrderTotalPrice = orderDTO.OrderTotalPrice
+                OrderTotalPrice = orderDTO.OrderTotalPrice,
+                OrderFinished = false
             };
 
             db.Orders.Add(order);

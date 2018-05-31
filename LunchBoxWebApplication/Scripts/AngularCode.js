@@ -193,7 +193,7 @@ app.controller("myCtrl", function ($scope, $http) {
             $scope.Product.ImageUrl = $scope.ProdUrl;
             $scope.Product.ProductId = document.getElementById("ProdID_").value;
             $scope.Product.SubcategoryId = document.getElementById("Subcat_Dropdown").value;
-            
+
             $http({
                 method: "put",
                 url: "http://localhost:8080/api/products/" + document.getElementById("ProdID_").value,
@@ -223,7 +223,7 @@ app.controller("myCtrl", function ($scope, $http) {
         $scope.ProdPrice = Prod.ProductPrice;
         $scope.ProdIngred = Prod.IngredientsBlobbed;
         $scope.ProdUrl = Prod.ImageUrl;
-        
+
         document.getElementById("btnSave").setAttribute("value", "Update");
         document.getElementById("btnSave").style.backgroundColor = "hotpink";
         document.getElementById("spn").innerHTML = "Update Product Information";
@@ -386,16 +386,21 @@ app.controller("myCtrl", function ($scope, $http) {
         $http({
             method: "get",
             url: "http://localhost:8080/api/orders"
-        }).then(function (response) {
+        }).then(function(response) {
             $scope.orders = response.data;
-        }, function () {
-            alert("Error Occur");
         });
     };
 
     $scope.GetOrdProd = function (Ord) {
         document.getElementById("OrdID_").value = Ord.OrderId;
         $scope.selectedOrder = Ord.OrderId;
+
+        if ($scope.lastSelected) {
+            $scope.lastSelected.selected = '';
+        }
+        this.selected = 'selected';
+        $scope.lastSelected = this;
+
         $http({
             method: "get",
             url: "http://localhost:8080/api/OrderedProducts/" + Ord.OrderId
@@ -403,6 +408,31 @@ app.controller("myCtrl", function ($scope, $http) {
             $scope.products = response.data;
         }, function () {
             alert("Error Occur");
+        });
+    };
+
+    $scope.UpdateOrder = function (Ord) {
+        $scope.Order = {};
+        $scope.Order.OrderId = Ord.OrderId;
+        $scope.Order.OrderTotalPrice = Ord.OrderTotalPrice;
+        $scope.Order.OrderTotalProductCount = Ord.OrderTotalProductCount;
+        $scope.Order.OrderPayment = Ord.OrderPayment;
+        $scope.Order.DeliverySelected = Ord.DeliverySelected;
+        $scope.Order.OrderCompanyName = Ord.OrderCompanyName;
+        $scope.Order.OrderUser = Ord.OrderUser;
+        $scope.Order.OrderDate = Ord.OrderDate;
+        $scope.Order.OrderTime = Ord.OrderTime;
+        $scope.Order.Products = Ord.Products;
+        $scope.Order.OrderFinished = true;
+
+        $http({
+            method: "put",
+            url: "http://localhost:8080/api/orders/" + Ord.OrderId,
+            datatype: "json",
+            data: JSON.stringify($scope.Order)
+        }).then(function (response) {
+            //alert(response.data);
+            $scope.GetAllOrd();
         });
     };
 });

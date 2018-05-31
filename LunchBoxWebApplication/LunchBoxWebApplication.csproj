@@ -260,6 +260,10 @@
     <Compile Include="Migrations\201805201643141_UpdatedOrderedProduct.Designer.cs">
       <DependentUpon>201805201643141_UpdatedOrderedProduct.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201805311159157_Modified-Order.cs" />
+    <Compile Include="Migrations\201805311159157_Modified-Order.Designer.cs">
+      <DependentUpon>201805311159157_Modified-Order.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -282,6 +286,7 @@
     <Content Include="Areas\HelpPage\HelpPage.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Style.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -377,6 +382,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201805201643141_UpdatedOrderedProduct.resx">
       <DependentUpon>201805201643141_UpdatedOrderedProduct.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805311159157_Modified-Order.resx">
+      <DependentUpon>201805311159157_Modified-Order.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

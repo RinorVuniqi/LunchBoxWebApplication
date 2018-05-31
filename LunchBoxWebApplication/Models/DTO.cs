@@ -56,6 +56,7 @@ namespace LunchBoxWebApplication.Models
         public string OrderCompanyName { get; set; }
         public string OrderDate { get; set; }
         public string OrderTime { get; set; }
+        public bool OrderFinished { get; set; }
         public User OrderUser { get; set; }
         public List<OrderedProduct> Products { get; set; }
     }

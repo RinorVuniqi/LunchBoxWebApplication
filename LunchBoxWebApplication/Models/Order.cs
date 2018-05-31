@@ -26,5 +26,7 @@ namespace LunchBoxWebApplication.Models
         public string OrderTime { get; set; }
 
         public List<OrderedProduct> Products { get; set; }
+
+        public bool OrderFinished { get; set; }
     }
 }
