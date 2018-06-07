@@ -264,6 +264,10 @@
     <Compile Include="Migrations\201805311159157_Modified-Order.Designer.cs">
       <DependentUpon>201805311159157_Modified-Order.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201805311355065_Update-Second-Device.cs" />
+    <Compile Include="Migrations\201805311355065_Update-Second-Device.Designer.cs">
+      <DependentUpon>201805311355065_Update-Second-Device.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -385,6 +389,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201805311159157_Modified-Order.resx">
       <DependentUpon>201805311159157_Modified-Order.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805311355065_Update-Second-Device.resx">
+      <DependentUpon>201805311355065_Update-Second-Device.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

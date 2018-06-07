@@ -100,15 +100,26 @@ namespace LunchBoxWebApplication.Controllers
                 return BadRequest(ModelState);
             }
 
-            var user = new User()
+            var user = new User();
+
+            if (userDTO.UserId == Guid.Empty)
             {
-                UserId = Guid.NewGuid(),
-                UserEmail = userDTO.UserEmail,
-                UserPassword = userDTO.UserPassword,
-                UserName = userDTO.UserName,
-                UserFirstName = userDTO.UserFirstName,
-                UserLastName = userDTO.UserLastName
-            };
+                user.UserId = Guid.NewGuid();
+                user.UserEmail = userDTO.UserEmail;
+                user.UserPassword = userDTO.UserPassword;
+                user.UserName = userDTO.UserName;
+                user.UserFirstName = userDTO.UserFirstName;
+                user.UserLastName = userDTO.UserLastName;
+            }
+            else
+            {
+                user.UserId = userDTO.UserId;
+                user.UserEmail = userDTO.UserEmail;
+                user.UserPassword = userDTO.UserPassword;
+                user.UserName = userDTO.UserName;
+                user.UserFirstName = userDTO.UserFirstName;
+                user.UserLastName = userDTO.UserLastName;
+            }
 
             db.Users.Add(user);
 
